@@ -28,6 +28,7 @@ import com.ritwik.web.model.providedservices;
 import com.ritwik.web.model.vendor;
 import com.ritwik.web.model.vendorform;
 import com.ritwik.web.services.services;
+import com.ritwik.web.services.servicerepo;
 
 
 import org.springframework.mail.javamail.JavaMailSender;
@@ -90,6 +91,9 @@ public class ratingcontroller {
 	
 	@Autowired
 	services services;
+	
+	@Autowired
+	servicerepo servicerepo;
 	
 	@Autowired
 	private JavaMailSender sender;
