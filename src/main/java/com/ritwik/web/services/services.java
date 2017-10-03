@@ -1,11 +1,13 @@
 package com.ritwik.web.services;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.ritwik.web.model.vendor;
+import com.ritwik.web.model.vendorform;
 
-public interface services extends JpaRepository<vendor,Long> {
+public interface services {
 	
+	public vendor signup(vendorform v);
+	public String login(String uname,String password);
+	public String viewprofile();
+	public String logout();
 	
-
 }
