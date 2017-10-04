@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 import com.ritwik.web.model.providedserviceproducts;
 import com.ritwik.web.model.providedservices;
+import com.ritwik.web.model.quesdes;
+import com.ritwik.web.model.questions;
 import com.ritwik.web.model.vendor;
 import com.ritwik.web.model.vendorform;
 
@@ -29,6 +31,12 @@ public class servicesimpl implements services  {
 	servicerepo servicerepo;
 	
 	@Autowired
+	servicerepo2 servicerepo2;
+	
+	@Autowired
+	servicerepo3 servicerepo3;
+	
+	@Autowired
 	private HttpSession httpsession;
 	
 	@Autowired
@@ -36,6 +44,8 @@ public class servicesimpl implements services  {
 	
 	@Autowired
 	private HttpServletResponse response;
+	
+	
 	
 	public vendor signup(vendorform v) {
 //		String[] words=provideservice.split(","); 
@@ -100,6 +110,34 @@ public class servicesimpl implements services  {
         session.invalidate();
     //    Status=1;
         return "Logged_Out Succesfully";
+	}
+	
+	public String addQues() {
+		  String jpql = "FROM  providedservices as p WHERE p.PSname = ?";
+ 		  providedservices PS=(providedservices) entityManager.createQuery(jpql).setParameter(1,"food").getSingleResult();  
+		
+ 		  String jpql1 = "FROM providedserviceproducts as p WHERE p.PSPname = ?";
+		  providedserviceproducts PSP= (providedserviceproducts) entityManager.createQuery(jpql1).setParameter(1,"milkshake").getSingleResult();	
+		  
+	        HttpSession session=request.getSession();   
+	        Integer id=(Integer) session.getAttribute("id");  
+	        String jpql2 = "FROM vendor as p WHERE p.Vid = ?";
+			vendor vv=(vendor) entityManager.createQuery(jpql2).setParameter(1,id).getSingleResult();	
+	        quesdes ques = new quesdes("krishna?");
+	        servicerepo2.save(ques);
+	        quesdes ques1 = new quesdes("kranthi?");
+	        servicerepo2.save(ques1);
+	        questions q= new questions(ques,vv,PS,PSP);
+	        questions q1= new questions(ques1,vv,PS,PSP);
+	        servicerepo3.save(q);
+	        servicerepo3.save(q1); 
+	        return "success";
+	        
+		  
+		  //  Set<questions> ques = new HashSet<questions>(); 
+	//	  ques.add("krishna?");
+		  
+	
 	}
 
 	

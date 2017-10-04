@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
@@ -33,6 +34,9 @@ public class vendor {
 	@Column(name="email")
 	private String Email;
 	
+	@OneToMany(mappedBy = "v", cascade = CascadeType.ALL)
+	private Set<questions> questions;
+	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "vendor_providedservices", joinColumns = @JoinColumn(name = "Vid", referencedColumnName = "Vid"), 
     inverseJoinColumns = @JoinColumn(name = "PSid", referencedColumnName = "PSid"))
@@ -44,6 +48,11 @@ public class vendor {
 	private Set<providedserviceproducts> providedserviceproducts;
 	
 	public vendor() {
+		
+	}
+    public vendor(Integer Vid,Set<questions> questions) {
+    	this.Vid=Vid;
+    	this.questions=questions;
 		
 	}
 	public vendor(Integer Vid,Set<providedservices> providedservices,Set<providedserviceproducts> providedserviceproducts) {
@@ -119,6 +128,14 @@ public class vendor {
 	
 	public void setProvidedserviceproducts(Set<providedserviceproducts> providedserviceproducts) {
 		this.providedserviceproducts=providedserviceproducts;
+	}
+	
+	
+	public Set<questions> getQuestions() {
+		return questions;
+	}
+	public void setQuestions(Set<questions> questions) {
+		this.questions = questions;
 	}
 	
 }

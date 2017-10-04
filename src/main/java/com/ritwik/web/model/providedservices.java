@@ -2,16 +2,19 @@ package com.ritwik.web.model;
 
 import java.util.Set;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 //Admin
 @Entity
+
 @Table(name = "providedservices", catalog = "reviewsystem")
 public class providedservices {
 	
@@ -21,6 +24,8 @@ public class providedservices {
 	@Column(name="psname")
 	private String PSname;
 	
+	@OneToMany(mappedBy = "providedservices")
+	private Set<questions> questions;
 	
 	@ManyToMany(mappedBy = "providedservices", fetch = FetchType.EAGER)
 	private Set<vendor> vendor;
@@ -59,5 +64,14 @@ public class providedservices {
 	public void setVendor(Set<vendor> vendor) {
 		this.vendor=vendor;
 	}
-	
+
+	public Set<questions> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Set<questions> questions) {
+		this.questions = questions;
+	}
+
+
 }

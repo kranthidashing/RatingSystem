@@ -1,4 +1,4 @@
-package com.ritwik.web.security;
+/*package com.ritwik.web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -45,4 +45,4 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("admin").password("password").roles("ADMIN");
     }
-}
+}  */

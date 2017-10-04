@@ -2,11 +2,13 @@ package com.ritwik.web.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 //admin
@@ -22,8 +24,12 @@ public class providedserviceproducts {
 	@Column(name="sid")
 	private Integer Sid;
 	
+	@OneToMany(mappedBy="providedserviceproducts", cascade = CascadeType.ALL)
+	private Set<questions> questions;
+	
 	@ManyToMany(mappedBy = "providedserviceproducts", fetch = FetchType.EAGER)
 	private Set<vendor> vendor;
+	
 	
 	public providedserviceproducts() {
 		
@@ -69,4 +75,13 @@ public class providedserviceproducts {
 	public void setVendor(Set<vendor> vendor) {
 		this.vendor=vendor;
 	}
+	public Set<questions> getQuestions() {
+		return questions;
+	}
+	public void setQuestions(Set<questions> questions) {
+		this.questions = questions;
+	}
+	
+
+	
 }

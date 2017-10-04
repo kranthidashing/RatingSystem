@@ -9,5 +9,6 @@ public interface services {
 	public String login(String uname,String password);
 	public String viewprofile();
 	public String logout();
+	public String addQues();
 	
 }
