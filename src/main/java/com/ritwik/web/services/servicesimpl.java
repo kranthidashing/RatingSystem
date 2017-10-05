@@ -2,6 +2,7 @@ package com.ritwik.web.services;
 
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -17,6 +18,7 @@ import com.ritwik.web.model.providedserviceproducts;
 import com.ritwik.web.model.providedservices;
 import com.ritwik.web.model.quesdes;
 import com.ritwik.web.model.questions;
+import com.ritwik.web.model.setques;
 import com.ritwik.web.model.vendor;
 import com.ritwik.web.model.vendorform;
 
@@ -114,25 +116,23 @@ public class servicesimpl implements services  {
         return "Logged_Out Succesfully";
 	}
 	
-	public String addQues() {
+	public String addQues(setques q) {
 		  String jpql = "FROM  providedservices as p WHERE p.PSname = ?";
- 		  providedservices PS=(providedservices) entityManager.createQuery(jpql).setParameter(1,"food").getSingleResult();  
-		
+ 		  providedservices PS=(providedservices) entityManager.createQuery(jpql).setParameter(1,q.getServices()).getSingleResult();  	
  		  String jpql1 = "FROM providedserviceproducts as p WHERE p.PSPname = ?";
-		  providedserviceproducts PSP= (providedserviceproducts) entityManager.createQuery(jpql1).setParameter(1,"milkshake").getSingleResult();	
-		  
+		  providedserviceproducts PSP= (providedserviceproducts) entityManager.createQuery(jpql1).setParameter(1,q.getServiceProducts()).getSingleResult();			  
 	        HttpSession session=request.getSession();   
 	        Integer id=(Integer) session.getAttribute("id");  
 	        String jpql2 = "FROM vendor as p WHERE p.Vid = ?";
-			vendor vv=(vendor) entityManager.createQuery(jpql2).setParameter(1,id).getSingleResult();	
-	        quesdes ques = new quesdes("krishna?");
-	        servicerepo2.save(ques);
-	        quesdes ques1 = new quesdes("kranthi?");
-	        servicerepo2.save(ques1);
-	        questions q= new questions(ques,vv,PS,PSP);
-	        questions q1= new questions(ques1,vv,PS,PSP);
-	        servicerepo3.save(q);
-	        servicerepo3.save(q1); 
+			vendor vv=(vendor) entityManager.createQuery(jpql2).setParameter(1,id).getSingleResult();	      
+			HashSet<String> set = (HashSet<String>) q.getQuestions();
+			 Iterator<String> itr=set.iterator();  
+			  while(itr.hasNext()){ 
+				  quesdes ques = new quesdes(itr.next());
+			        servicerepo2.save(ques);
+			        questions ques1= new questions(ques,vv,PS,PSP);
+			        servicerepo3.save(ques1); 
+			  }  
 	        return "success";
 	
 	}	

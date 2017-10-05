@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ritwik.web.model.providedserviceproducts;
 import com.ritwik.web.model.providedservices;
+import com.ritwik.web.model.setques;
 import com.ritwik.web.model.vendor;
 import com.ritwik.web.model.vendorform;
 import com.ritwik.web.services.services;
@@ -118,8 +119,8 @@ public class ratingcontroller {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value ="/addQues")
-	public String addQues() {
-		return services.addQues();
+	public String addQues(@RequestBody setques q) {
+		return services.addQues(q);
 	}
 	
 	
