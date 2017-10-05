@@ -36,12 +36,14 @@ public class servicesimpl implements services  {
 	@Autowired
 	servicerepo3 servicerepo3;
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private HttpSession httpsession;
 	
 	@Autowired
 	private HttpServletRequest request;
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private HttpServletResponse response;
 	
@@ -132,13 +134,6 @@ public class servicesimpl implements services  {
 	        servicerepo3.save(q);
 	        servicerepo3.save(q1); 
 	        return "success";
-	        
-		  
-		  //  Set<questions> ques = new HashSet<questions>(); 
-	//	  ques.add("krishna?");
-		  
 	
-	}
-
-	
+	}	
 }

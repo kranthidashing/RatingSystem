@@ -22,10 +22,6 @@ public class questions {
 	private Integer Qid;
 	
 	@ManyToOne
-	@JoinColumn(name = "Quesid")
-	private quesdes quesdes;
-	
-	@ManyToOne
 	@JoinColumn(name = "Vid")
 	private vendor v;
 	@ManyToOne
@@ -34,6 +30,11 @@ public class questions {
 	@ManyToOne
 	@JoinColumn(name = "PSPid")
 	private providedserviceproducts providedserviceproducts;
+	
+	@ManyToOne
+	@JoinColumn(name = "Quesid")
+	private quesdes quesdes;
+	
 	
 	public questions(quesdes quesdes,vendor v,providedservices ps,providedserviceproducts psp) {
 		this.quesdes=quesdes;
