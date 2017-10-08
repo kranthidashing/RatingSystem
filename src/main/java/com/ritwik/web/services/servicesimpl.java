@@ -33,6 +33,12 @@ public class servicesimpl implements services  {
 	servicerepo servicerepo;
 	
 	@Autowired
+	servicerepo1 servicerepo1;
+	
+	@Autowired
+	servicerepo4 servicerepo4;
+	
+	@Autowired
 	servicerepo2 servicerepo2;
 	
 	@Autowired
@@ -136,4 +142,27 @@ public class servicesimpl implements services  {
 	        return "success";
 	
 	}	
+	
+	public String adminaddServices(String service, String products) {
+		    HttpSession session=request.getSession();   
+	        Integer id=(Integer) session.getAttribute("id"); 
+	        if(id==222) {
+	           providedservices ps=new providedservices(service);
+	           servicerepo1.save(ps);
+	           String[] words1=products.split(",");
+	          // Set<providedserviceproducts> psp = new HashSet<providedserviceproducts>();
+			    for(String w:words1) {
+			    	providedserviceproducts PSP = new providedserviceproducts(ps,w);
+			    //	psp.add(PSP);		
+			    	servicerepo4.save(PSP);
+			    }
+			//    servicerepo1.save(new providedservices(ps.getPSid(),psp));
+			    return "success";
+	           
+	        }
+	        else
+	        	return "u r not admin";
+	        	
+		
+	}
 }

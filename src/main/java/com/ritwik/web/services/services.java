@@ -11,5 +11,6 @@ public interface services {
 	public String viewprofile();
 	public String logout();
 	public String addQues(setques q);
+	public String adminaddServices(String service, String products);
 	
 }

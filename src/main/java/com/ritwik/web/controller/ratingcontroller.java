@@ -124,7 +124,10 @@ public class ratingcontroller {
 	}
 	
 	
-	
+	@RequestMapping(method=RequestMethod.POST, value ="/adminaddQues/{s}/{p}")
+	public String adminaddServices(@PathVariable("s") final String Service,@PathVariable("p") final String Products) {
+		return services.adminaddServices(Service,Products);
+	}
 	
 	
 	

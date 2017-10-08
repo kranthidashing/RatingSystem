@@ -2,10 +2,11 @@ package com.ritwik.web.model;
 
 import java.util.Set;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -14,15 +15,18 @@ import javax.persistence.Table;
 
 //Admin
 @Entity
-
 @Table(name = "providedservices", catalog = "reviewsystem")
 public class providedservices {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name="psid")
 	private Integer PSid;
 	@Column(name="psname")
 	private String PSname;
+	
+	@OneToMany(mappedBy="providedservices")
+	private Set<providedserviceproducts> providedserviceproducts;
 	
 	@OneToMany(mappedBy = "providedservices")
 	private Set<questions> questions;
@@ -33,7 +37,13 @@ public class providedservices {
 	public providedservices() {
 		
 	}
-	
+	public providedservices(String PSname) {
+		this.PSname=PSname;
+	}
+	public providedservices(Integer PSid,Set<providedserviceproducts> providedserviceproducts) {
+		this.PSid=PSid;
+		this.providedserviceproducts=providedserviceproducts;
+	}
 	public providedservices(Integer PSid,String PSname) {
 		this.PSid=PSid;
 		this.PSname=PSname;

@@ -6,8 +6,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -17,12 +21,17 @@ import javax.persistence.Table;
 public class providedserviceproducts {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name="pspid")
 	private Integer PSPid;
 	@Column(name="pspname")
 	private String PSPname;
-	@Column(name="sid")
-	private Integer Sid;
+//	@Column(name="sid")
+//	private Integer Sid;
+	
+	@ManyToOne
+	@JoinColumn(name = "PSid")
+	private providedservices providedservices;
 	
 	@OneToMany(mappedBy="providedserviceproducts", cascade = CascadeType.ALL)
 	private Set<questions> questions;
@@ -34,22 +43,24 @@ public class providedserviceproducts {
 	public providedserviceproducts() {
 		
 	}
+	public providedserviceproducts(String PSPname) {
+    	this.PSPname=PSPname;
+	}
     public providedserviceproducts(Integer PSPid,String PSPname) {
     	this.PSPid=PSPid;
     	this.PSPname=PSPname;
 	}
-    public providedserviceproducts(Integer PSPid,String PSPname,Integer Sid) {
+    public providedserviceproducts(Integer PSPid,String PSPname,Set<vendor> vendor) {
     	this.PSPid=PSPid;
     	this.PSPname=PSPname;
-    	this.Sid=Sid;	
-	}
-    public providedserviceproducts(Integer PSPid,String PSPname,Integer Sid,Set<vendor> vendor) {
-    	this.PSPid=PSPid;
-    	this.PSPname=PSPname;
-    	this.Sid=Sid;	
     	this.vendor=vendor;
 	}
 	
+	public providedserviceproducts(providedservices providedservices, String PSPname) {
+		this.providedservices=providedservices;
+		this.PSPname=PSPname;
+		
+	}
 	public Integer getPSPid() {
 		return PSPid;
 	}
@@ -62,12 +73,12 @@ public class providedserviceproducts {
 	public void setPSPname(String PSPname) {
 		this.PSPname=PSPname;
 	}
-	public Integer getSid() {
+/*	public Integer getSid() {
 		return Sid;
 	}
 	public void setSid(Integer Sid) {
 		this.Sid=Sid;
-	}
+	} */
 	public Set<vendor> getVendor() {
 		return vendor;
 	}
