@@ -13,6 +13,7 @@ import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
+import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -70,11 +71,14 @@ public class BatchConfiguration {
         // we read a flat file that will be used to fill a Person object
         FlatFileItemReader<Person> reader = new FlatFileItemReader<Person>();
         // we pass as parameter the flat file directory
-        reader.setResource(new ClassPathResource("PersonData.txt"));
+        reader.setResource(new ClassPathResource("PersonData.csv"));
         // we use a default line mapper to assign the content of each line to the Person object
         reader.setLineMapper(new DefaultLineMapper<Person>() {{
             // we use a custom fixed line tokenizer
-            setLineTokenizer(new PersonFixedLengthTokenizer());
+            setLineTokenizer(new DelimitedLineTokenizer() {{
+            	setDelimiter(",");
+                setNames(new String[]{"firstName", "familyName", "year"});
+            }});
             // as field mapper we use the name of the fields in the Person class
             setFieldSetMapper(new BeanWrapperFieldSetMapper<Person>() {{
                 // we create an object Person

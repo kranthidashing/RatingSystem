@@ -1,18 +1,25 @@
 package com.ritwik.web.services;
 
+import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.item.file.transform.FixedLengthTokenizer;
 import org.springframework.batch.item.file.transform.Range;
 import org.springframework.batch.item.file.transform.RangeArrayPropertyEditor;
 
-public class PersonFixedLengthTokenizer extends FixedLengthTokenizer {
+public class PersonFixedLengthTokenizer extends DelimitedLineTokenizer {
 
     public PersonFixedLengthTokenizer() {
-        RangeArrayPropertyEditor range = new RangeArrayPropertyEditor();
+    /*    RangeArrayPropertyEditor range = new RangeArrayPropertyEditor();
         // we defines how to split the text line, from column 1 to 30 assign the content to 'firstName'
         range.setAsText("1-30,31-60,61-");
         // names have to be the same as the properties in the model class
-        setNames(new String[]{"firstName", "familyName", "year"  });
-        setColumns((Range[]) range.getValue());
+        setNames(new String[]{"firstName", "familyName", "year"});
+        setColumns((Range[]) range.getValue());  */
+        
+        DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
+  //      String[] tokens = {"firstName","familyName","year"};
+        tokenizer.setDelimiter(",");
+        tokenizer.setStrict(false);
+        tokenizer.setNames(new String[]{"firstName", "familyName", "year"});
 
     }
 

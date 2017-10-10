@@ -1,2 +1,2 @@
-Jack                          Bauer                         1950
-Pinco                         Pallino                       1989
+"Jack","Bauer",1950
+"Pinco","Pallino",1989
