@@ -45,7 +45,6 @@ import java.util.Properties;
 // file that contains the properties
 @PropertySource("classpath:application.properties")
 public class BatchConfiguration {
-	
 
 
     /*
@@ -66,7 +65,7 @@ public class BatchConfiguration {
      *
      * @return
      */
-  //  @Bean
+    @Bean
     public ItemReader<Person> reader() {
         // we read a flat file that will be used to fill a Person object
         FlatFileItemReader<Person> reader = new FlatFileItemReader<Person>();
@@ -92,7 +91,7 @@ public class BatchConfiguration {
      *
      * @return
      */
-  //  @Bean
+    @Bean
     public ItemProcessor<Person, Person> processor() {
         return new PersonItemProcessor();
     }
@@ -101,7 +100,7 @@ public class BatchConfiguration {
      * Nothing special here a simple JpaItemWriter
      * @return
      */
-  //  @Bean
+    @Bean
     public ItemWriter<Person> writer() {
         JpaItemWriter writer = new JpaItemWriter<Person>();
         writer.setEntityManagerFactory(entityManagerFactory().getObject());
@@ -116,7 +115,7 @@ public class BatchConfiguration {
      * @param s1
      * @return
      */
- //   @Bean
+    @Bean
     public Job importPerson(JobBuilderFactory jobs, Step s1) {
 
         return jobs.get("import")
@@ -138,7 +137,7 @@ public class BatchConfiguration {
      * @return
      */
 
-  //  @Bean
+    @Bean
     public Step step1(StepBuilderFactory stepBuilderFactory, ItemReader<Person> reader,
                       ItemWriter<Person> writer, ItemProcessor<Person, Person> processor) {
         return stepBuilderFactory.get("step1")
@@ -155,7 +154,7 @@ public class BatchConfiguration {
      * @return
      */
 
-  //  @Bean
+    @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(databaseDriver);
@@ -166,11 +165,11 @@ public class BatchConfiguration {
     }
 
 
-  //  @Bean
+    @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
         LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
-        lef.setPackagesToScan("ch.javaee.springBootBatch");
+        lef.setPackagesToScan("com.ritwik.web");
         lef.setDataSource(dataSource());
         lef.setJpaVendorAdapter(jpaVendorAdapter());
         lef.setJpaProperties(new Properties());
@@ -178,7 +177,7 @@ public class BatchConfiguration {
     }
 
 
- //   @Bean
+    @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         jpaVendorAdapter.setDatabase(Database.MYSQL);
