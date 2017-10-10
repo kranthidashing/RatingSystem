@@ -75,8 +75,8 @@ public class ratingcontroller {
 		v = (vendor) entityManager.createQuery(jpql).setParameter(1,name).getSingleResult();
         }catch(NoResultException e) {System.out.println(e);}
 		if(v==null) {
-    //    	vendor vnd = new vendor(firstname,lastname,name,pass,email);
-  //      	rr.save(vnd);
+        	vendor vnd = new vendor(firstname,lastname,name,pass,email);
+        	servicerepo.save(vnd);
         	String jpql = "FROM  vendor as v WHERE v.UserName = ?";
      		v = (vendor) entityManager.createQuery(jpql).setParameter(1,name).getSingleResult();
         	//return "success";
@@ -226,8 +226,8 @@ public class ratingcontroller {
 		Set<providedserviceproducts> psp = new HashSet<providedserviceproducts>();
 		ps.add(PS);	
 		psp.add(PSP);
-	//	vendor vg = new vendor(id,ps,psp);
-//		rr.save(vg);
+		vendor vg = new vendor(id,ps,psp);
+    	servicerepo.save(vg);
 		 return "details_Added";
        }
        else
