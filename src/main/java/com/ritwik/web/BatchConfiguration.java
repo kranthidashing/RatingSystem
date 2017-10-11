@@ -28,12 +28,7 @@ import com.ritwik.web.services.ServiceRepo5;
 @ComponentScan
 @EnableAutoConfiguration
 public class BatchConfiguration {
-	    @Autowired
-	    private JobBuilderFactory jobBuilderFactory;
-
-	    @Autowired
-	    private StepBuilderFactory stepBuilderFactory;
-	    
+	   
 	    @Autowired
 	    private ServiceRepo5 servicerepo5;
     @Bean
